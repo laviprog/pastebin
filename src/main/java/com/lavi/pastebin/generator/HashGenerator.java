@@ -1,6 +1,6 @@
 package com.lavi.pastebin.generator;
 
-import com.lavi.pastebin.api.services.PostService;
+import com.lavi.pastebin.api.services.PostInfoService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ public class HashGenerator {
     private static final char[] base64;
     private static final int length = 6;
     @Autowired
-    private PostService service;
+    private PostInfoService service;
 
     static {
         base64 = new char[64];

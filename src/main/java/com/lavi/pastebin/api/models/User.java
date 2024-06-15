@@ -20,5 +20,5 @@ public class User extends Model {
 
     @OneToMany
     @JoinColumn(name = "user_id")
-    private List<Post> posts;
+    private List<PostInfo> posts;
 }
