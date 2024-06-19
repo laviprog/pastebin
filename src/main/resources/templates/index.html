@@ -4,27 +4,40 @@
     <meta charset="UTF-8">
     <title>Pastebin</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
 
 </head>
 <body>
-<div class="container">
-    <h1>Pastebin</h1>
-    <form action="/add_post" method="post">
-        <label>
-            <textarea name="text" placeholder="Введите ваш текст здесь..." required></textarea>
-        </label><br/>
-        <label>
-            <input name="title" placeholder="untitled">
-        </label><br/>
-        <label for="extension">Choose:</label>
-        <select name="extension" id="extension">
-            <option value="txt">None</option>
-            <option value="" disabled="disabled">--Please choose an option--</option>
-            <option value="py">Python</option>
-            <option value="java">Java</option>
-        </select>
-        <button type="submit">Save</button>
-    </form>
-</div>
+    <div th:if="${user == null}">
+        <a href="login">Войти</a>
+        <a href="registration">Зарегистрироваться</a>
+    </div>
+    <div th:if="${user != null}">
+        <a href="/logout">Выйти</a>
+    </div>
+    <div class="container">
+        <h1>Pastebin</h1>
+        <form action="/add_post" method="post">
+            <label>
+                <textarea name="text" placeholder="Введите ваш текст здесь..." required></textarea>
+            </label><br/>
+            <label>
+                <input name="title" placeholder="untitled">
+            </label><br/>
+            <label for="extension">Choose:</label>
+            <select name="extension" id="extension">
+                <option value="txt">None</option>
+                <option value="" disabled="disabled">--Please choose an option--</option>
+                <option value="py">Python</option>
+                <option value="java">Java</option>
+            </select>
+            <button type="submit">Save</button>
+        </form>
+
+        <div th:if="${user != null}">
+            <a th:each="postInfo : ${user.user.posts}" th:href="@{${postInfo.hash}}" th:text="${postInfo.title}"></a>
+        </div>
+
+    </div>
 </body>
 </html>

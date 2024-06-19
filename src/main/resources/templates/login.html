@@ -5,6 +5,9 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="container mt-5">
+  <a href="/"><button class="btn btn-primary">На главную</button></a>
+</div>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
@@ -12,7 +15,7 @@
         <div class="card-header">
           <h3 class="card-title">Login</h3>
         </div>
-        <p class="form-text" th:text="${message}"></p>
+        <p th:if="${message != null}" class="form-text" th:text="${message}"></p>
         <div class="card-body">
           <form th:action="@{/login}" method="post">
             <div class="form-group">
@@ -29,6 +32,9 @@
       </div>
     </div>
   </div>
+</div>
+<div class="container">
+  <a href="registration"><button class="btn btn-primary">Registration</button></a>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

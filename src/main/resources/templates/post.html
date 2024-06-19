@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <title>View Paste</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="mt-5">
+    <button class="btn btn-primary" onclick="window.history.back()">Вернуться назад</button>
+</div>
 <div class="container">
     <h1>View Paste</h1>
+    title:
+    <p th:text="${postInfo.getTitle()}"></p>
+    author:
+    <p th:text="${postInfo.getAuthor()}"></p>
+    type:
+    <p th:text="${postInfo.getExtension()}"></p>
     <pre th:text="${text}"></pre>
     <a href="/">Create another paste</a>
 </div>

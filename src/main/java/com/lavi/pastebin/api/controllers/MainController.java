@@ -40,7 +40,8 @@ public class MainController {
     }
 
     @GetMapping("/welcome")
-    public String welcome() {
+    public String welcome(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
+        model.addAttribute("user", userDetails);
         return "index";
     }
 
@@ -52,6 +53,7 @@ public class MainController {
             bufferedReader.lines().forEach(x -> text.append(x).append("\n"));
         }
         model.addAttribute("text", text.toString());
+        model.addAttribute("postInfo", post.getPostInfo());
         return "post";
     }
 
@@ -86,7 +88,8 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        model.addAttribute("message", null);
         return "login";
     }
 
