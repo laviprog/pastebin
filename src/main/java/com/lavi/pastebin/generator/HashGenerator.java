@@ -26,7 +26,7 @@ public class HashGenerator {
                 base64[i] = (char) ('0' + i - 52);
             } else {
                 base64[i] = '+';
-                base64[i + 1] = '/';
+                base64[i + 1] = '!';
             }
         }
     }

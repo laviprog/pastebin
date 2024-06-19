@@ -1,12 +1,10 @@
 package com.lavi.pastebin.api.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -15,10 +13,11 @@ import java.util.List;
 @Data
 public class User extends Model {
     private String username;
+    @Column(unique = true)
     private String email;
     private String password;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
-    private List<PostInfo> posts;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private List<PostInfo> posts = new ArrayList<>();
 }

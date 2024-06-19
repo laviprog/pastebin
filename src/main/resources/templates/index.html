@@ -1,11 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Pastebin</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
 </head>
 <body>
-<h1>PASTEBIN</h1>
-
+<div class="container">
+    <h1>Pastebin</h1>
+    <form action="/add_post" method="post">
+        <label>
+            <textarea name="text" placeholder="Введите ваш текст здесь..." required></textarea>
+        </label><br/>
+        <label>
+            <input name="title" placeholder="untitled">
+        </label><br/>
+        <label for="extension">Choose:</label>
+        <select name="extension" id="extension">
+            <option value="txt">None</option>
+            <option value="" disabled="disabled">--Please choose an option--</option>
+            <option value="py">Python</option>
+            <option value="java">Java</option>
+        </select>
+        <button type="submit">Save</button>
+    </form>
+</div>
 </body>
 </html>
