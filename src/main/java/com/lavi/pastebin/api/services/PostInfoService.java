@@ -18,8 +18,8 @@ public class PostInfoService {
         return repository.findByHash(hash).orElse(null);
     }
 
-    public void save(final PostInfo post) {
-        repository.save(post);
+    public PostInfo save(final PostInfo post) {
+        return repository.save(post);
     }
 
     public void deleteById(final Long id) {
