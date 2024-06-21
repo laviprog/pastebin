@@ -29,4 +29,8 @@ public class PostInfoService {
     public void delete(final PostInfo post) {
         repository.delete(post);
     }
+
+    public void deleteById(final Long id) {
+        repository.deleteById(id);
+    }
 }

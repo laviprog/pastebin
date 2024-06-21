@@ -4,10 +4,7 @@ import com.lavi.pastebin.api.models.Post;
 import com.lavi.pastebin.api.models.PostInfo;
 import com.lavi.pastebin.api.models.User;
 import com.lavi.pastebin.api.repositories.storage.StorageConfig;
-import com.lavi.pastebin.api.services.PostService;
-import com.lavi.pastebin.api.services.UserDetailsImpl;
-import com.lavi.pastebin.api.services.UserService;
-import com.lavi.pastebin.api.services.YCStorageService;
+import com.lavi.pastebin.api.services.*;
 import com.lavi.pastebin.generator.HashGenerator;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +29,7 @@ public class MainController {
     private HashGenerator hashGenerator;
     private UserService userService;
     private YCStorageService storageService;
+    private PostInfoService postInfoService;
 
 
     @GetMapping("/")
@@ -46,8 +44,14 @@ public class MainController {
     }
 
     @GetMapping("/{hash}")
-    public String getPost(@PathVariable String hash, Model model) throws IOException {
+    public String getPost(@PathVariable String hash, Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
         Post post = postService.get(hash);
+        if (userDetails == null || !userDetails.user().getUsername().equals(post.getPostInfo().getAuthor())) {
+            post.getPostInfo().view();
+            postInfoService.save(post.getPostInfo());
+        }else{
+            model.addAttribute("root", "author");
+        }
         StringBuilder text = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(post.getInputStream()))) {
             bufferedReader.lines().forEach(x -> text.append(x).append("\n"));
@@ -55,6 +59,13 @@ public class MainController {
         model.addAttribute("text", text.toString());
         model.addAttribute("postInfo", post.getPostInfo());
         return "post";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam String hash, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        postService.deleteByHash(hash);
+        userDetails.user().getPosts().removeIf(post -> post.getHash().equals(hash));
+        return "redirect:/welcome";
     }
 
     @PostMapping("/add_post")

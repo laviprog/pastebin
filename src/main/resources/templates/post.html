@@ -7,19 +7,26 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="mt-5">
-    <button class="btn btn-primary" onclick="window.history.back()">Вернуться назад</button>
-</div>
 <div class="container">
     <h1>View Paste</h1>
     title:
-    <p th:text="${postInfo.getTitle()}"></p>
+    <p th:text="${postInfo.title}"></p>
     author:
-    <p th:text="${postInfo.getAuthor()}"></p>
+    <p th:text="${postInfo.author}"></p>
+    Time of creation:
+    <p th:text="${postInfo.getDateTimeOfCreation()}"></p>
+    Number views:
+    <p th:text="${postInfo.numberViews}"></p>
     type:
     <p th:text="${postInfo.getExtension()}"></p>
     <pre th:text="${text}"></pre>
     <a href="/">Create another paste</a>
+</div>
+
+<div th:if="${root != null}">
+    <form action="delete" method="post">
+        <button type="submit" name="hash" th:value="${postInfo.hash}">delete</button>
+    </form>
 </div>
 </body>
 </html>

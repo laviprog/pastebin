@@ -18,14 +18,10 @@ public class PostService {
         storage.save(post);
     }
 
-    public void delete(Post post) {
-        storage.delete(post);
-        postRepositoryService.delete(post.getPostInfo());
-    }
-
-    public void update(Post post) {
-        postRepositoryService.update(post.getPostInfo());
-        storage.update(post);
+    public void deleteByHash(String hash) {
+        PostInfo postInfo = postRepositoryService.findByHash(hash);
+        storage.delete(postInfo);
+        postRepositoryService.deleteById(postInfo.getId());
     }
 
     public Post get(String hash) {

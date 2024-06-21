@@ -16,8 +16,8 @@ public class YCStorageService {
         storage.uploadObject(post.getPostInfo().getBucket(), post.getPostInfo().getKey(), post.getInputStream());
     }
 
-    public void delete(Post post){
-        storage.deleteObject(post.getPostInfo().getBucket(), post.getPostInfo().getKey());
+    public void delete(PostInfo post){
+        storage.deleteObject(post.getBucket(), post.getKey());
     }
 
     public void update(Post post){
