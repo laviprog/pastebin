@@ -22,14 +22,6 @@ public class PostInfoService {
         repository.save(post);
     }
 
-    public void update(final PostInfo post) {
-        repository.save(post);
-    }
-
-    public void delete(final PostInfo post) {
-        repository.delete(post);
-    }
-
     public void deleteById(final Long id) {
         repository.deleteById(id);
     }

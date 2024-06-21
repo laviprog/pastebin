@@ -20,10 +20,6 @@ public class YCStorageService {
         storage.deleteObject(post.getBucket(), post.getKey());
     }
 
-    public void update(Post post){
-        storage.updateObject(post.getPostInfo().getBucket(), post.getPostInfo().getKey(), post.getInputStream());
-    }
-
     public S3Object getPost(PostInfo postInfo){
         return storage.getObject(postInfo.getBucket(), postInfo.getKey());
     }
